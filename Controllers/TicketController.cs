@@ -53,7 +53,7 @@ namespace CorePdf.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GUID,Name")] TicketModel ticketModel)
+        public async Task<IActionResult> Create([Bind("GUID,Name,LastName,SeatNo,Email")] TicketModel ticketModel)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace CorePdf.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("GUID,Name")] TicketModel ticketModel)
+        public async Task<IActionResult> Edit(Guid id, [Bind("GUID,Name,LastName,SeatNo,Email")] TicketModel ticketModel)
         {
             if (id != ticketModel.GUID)
             {
@@ -116,6 +116,24 @@ namespace CorePdf.Controllers
             return View(ticketModel);
         }
 
+        public async Task<IActionResult> GetPDF(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var ticketModel = await _context.TicketDB
+                .FirstOrDefaultAsync(m => m.GUID == id);
+            if (ticketModel == null)
+            {
+                return NotFound();
+            }
+
+            return View(ticketModel);
+        }
+
+
         // GET: Ticket/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
@@ -133,6 +151,9 @@ namespace CorePdf.Controllers
 
             return View(ticketModel);
         }
+
+
+
 
         // POST: Ticket/Delete/5
         [HttpPost, ActionName("Delete")]
