@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CorePdf.Models;
+using Wkhtmltopdf.NetCore;
+using CorePdf.Extensions;
 
 namespace CorePdf.Controllers
 {
     public class TicketController : Controller
     {
         private readonly TicketContext _context;
+        readonly IGeneratePdf _generatePdf;
 
-        public TicketController(TicketContext context)
+        public TicketController(TicketContext context,IGeneratePdf generatePdf)
         {
             _context = context;
+            _generatePdf = generatePdf;
         }
 
         // GET: Ticket
@@ -132,6 +136,27 @@ namespace CorePdf.Controllers
 
             return View(ticketModel);
         }
+
+        [HttpPost, ActionName("GetPDF")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> PDFConfirmed(Guid id)
+        {
+            var ticketModel = await _context.TicketDB.FindAsync(id);
+
+
+            IronPdf.Installation.TempFolderPath = "$@'{_host.ContentRootPath}/irontemp/'";
+            IronPdf.Installation.LinuxAndDockerDependenciesAutoConfig = true;
+            var html = this.RenderViewAsync("_TicketPdf", ticketModel);
+            var ironPdfRender = new IronPdf.ChromePdfRenderer();
+            var pdfDoc = ironPdfRender.RenderHtmlAsPdf(html.Result);
+            return File(pdfDoc.Stream.ToArray(), "application/pdf");
+
+
+            
+            
+        }
+
+       
 
 
         // GET: Ticket/Delete/5

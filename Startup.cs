@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Wkhtmltopdf.NetCore;
 
 namespace CorePdf
 {
@@ -25,9 +26,12 @@ namespace CorePdf
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddWkhtmltopdf("wkhtmltopdf");
+            
             services.AddControllersWithViews();
             services.AddDbContext<TicketContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
