@@ -4,12 +4,11 @@
     ViewData["Title"] = "GetPDF";
 }
 
-<h1>GetPDF</h1>
-
-
-<form asp-action="GetPDF">
+ 
+<form asp-action="MVCTOPDF">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <input type="hidden" asp-for="GUID" />
+
     <div class="form-group">
             <label asp-for="Name" class="control-label"></label>
             <p>@Model.Name</p>
@@ -25,7 +24,9 @@
     
         
     <div class="form-group">
-        <input type="submit" value="Save PDF" class="btn btn-primary" />
+        <input type="submit" name="submitbutton" value="PDF Confirmed Rotativa" class="btn btn-primary" />
+        <input type="submit" download  name="submitbutton" value="PDF Confirmed Razor" class="btn btn-primary" />
+
     </div>
 </form>
 

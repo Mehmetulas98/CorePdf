@@ -8,18 +8,27 @@ using Microsoft.EntityFrameworkCore;
 using CorePdf.Models;
 using Wkhtmltopdf.NetCore;
 using CorePdf.Extensions;
+using Rotativa.AspNetCore;
+using SelectPdf;
+ 
+
+using DotLiquid;
+using System.IO;
+using System.Text;
+using DotLiquid.NamingConventions;
+using Microsoft.Web.Mvc.Controls;
 
 namespace CorePdf.Controllers
 {
     public class TicketController : Controller
     {
         private readonly TicketContext _context;
-        readonly IGeneratePdf _generatePdf;
+         
 
-        public TicketController(TicketContext context,IGeneratePdf generatePdf)
+        public TicketController(TicketContext context)
         {
             _context = context;
-            _generatePdf = generatePdf;
+            
         }
 
         // GET: Ticket
@@ -136,29 +145,46 @@ namespace CorePdf.Controllers
 
             return View(ticketModel);
         }
-
-        [HttpPost, ActionName("GetPDF")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> PDFConfirmed(Guid id)
+        public static string GetViewString(object request, string FilePath)
         {
-            var ticketModel = await _context.TicketDB.FindAsync(id);
 
+            Liquid.UseRubyDateFormat = false;
 
-            IronPdf.Installation.TempFolderPath = "$@'{_host.ContentRootPath}/irontemp/'";
-            IronPdf.Installation.LinuxAndDockerDependenciesAutoConfig = true;
-            var html = this.RenderViewAsync("_TicketPdf", ticketModel);
-            var ironPdfRender = new IronPdf.ChromePdfRenderer();
-            var pdfDoc = ironPdfRender.RenderHtmlAsPdf(html.Result);
-            return File(pdfDoc.Stream.ToArray(), "application/pdf");
+            Template.NamingConvention = new CSharpNamingConvention();
 
+            string liquidTemplateContent = System.IO.File.ReadAllText(FilePath);
 
-            
-            
+            Template template = Template.Parse(liquidTemplateContent);
+
+            template.MakeThreadSafe();
+
+            var renderOutput = template.Render(Hash.FromAnonymousObject(request));
+
+            return renderOutput;
         }
 
-       
 
-
+        [HttpPost, ActionName("MVCTOPDF")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PDFConfirmed(TicketModel model, string submitbutton)
+        {
+            var ticketModel = _context.TicketDB.FindAsync(model.GUID).Result;
+            if (submitbutton == "PDF Confirmed Rotativa")
+            {
+                return new ViewAsPdf(ticketModel);
+            }
+            else
+            {
+               
+                HtmlToPdf converter = new HtmlToPdf();
+                string ViewPath = "C:/Users/akdum/OneDrive/Masaüstü/CorePdf/Views/Ticket/MVCTOPDF.cshtml";
+                string htmlString = GetViewString(ticketModel, ViewPath);
+                PdfDocument doc = converter.ConvertHtmlString(htmlString);
+                var a = doc.Save();
+                doc.Close();
+                return File(a, "application/pdf", "Biletiniz.pdf");  
+            }   
+        }
         // GET: Ticket/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
