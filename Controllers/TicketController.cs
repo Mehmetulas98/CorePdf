@@ -170,7 +170,7 @@ namespace CorePdf.Controllers
         public ActionResult PDFConfirmed(TicketModel model, string submitbutton)
         {
             var ticketModel = _context.TicketDB.FindAsync(model.GUID).Result;
-            string ViewPath = "Views/Ticket/MVCTOPDF.cshtml";
+            string ViewPath = "Views/Ticket/boardingpass-tr-TR.html";
             string htmlString = GetViewString(ticketModel, ViewPath);
 
             // Rotativa

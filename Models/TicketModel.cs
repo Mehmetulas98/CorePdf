@@ -17,5 +17,20 @@ namespace CorePdf.Models
         public string SeatNo { get; set; }
 
         public string Email { get; set; }
+        public string Destination { get; set; }
+
+        public string Departure { get; set; }
+
+        public string Gate { get; set; }
+
+        public DateTime DestinationTime { get; set; }
+        public DateTime DepartureTime { get; set; }
+        public string FlightNumber { get; set; }
+
+        public string Class { get; set; }
+        public string FQTV { get; set; }
+
+        public string GroupCode { get; set; }
+
     }
 }

@@ -1,0 +1,876 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+        .w-grid-1, .w-grid-10, .w-grid-11, .w-grid-12, .w-grid-2, .w-grid-3, .w-grid-4, .w-grid-5, .w-grid-6, .w-grid-8, .w-grid-9 {
+            float: left;
+            min-height: 1px;
+            box-sizing: border-box;
+            display: block;
+        }
+
+        .viewport, .w-grid-1, .w-grid-10, .w-grid-11, .w-grid-12, .w-grid-2, .w-grid-3, .w-grid-4, .w-grid-5, .w-grid-7, .w-grid-8, .w-grid-9 {
+            box-sizing: border-box;
+        }
+
+        .row:after, .w-grid-1, .w-grid-10, .w-grid-11, .w-grid-12, .w-grid-2, .w-grid-3, .w-grid-4, .w-grid-5, .w-grid-7, .w-grid-8, .w-grid-9 {
+            display: block;
+        }
+
+        .line.horizontal, .viewport, body {
+            background: #eef1f4;
+        }
+
+        .height140, .height160, .relative {
+            position: relative;
+        }
+
+        @font-face {
+            font-family: Hind;
+            src: url({{Domain}}assets/css/fonts/Hind-Light.eot);
+            src: url({{Domain}}assets/css/fonts/Hind-Light.eot?#iefix) format('embedded-opentype'),url({{Domain}}/assets/css/fonts/Hind-Light.ttf) format('truetype'),url({{Domain}}/assets/css/fonts/Hind-Light.otf) format('opentype'),url({{Domain}}assets/css/fonts/Hind-Light.svg#Hind-Light) format('svg');
+            font-weight: 300;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: Hind;
+            src: url({{Domain}}assets/css/fonts/Hind-Regular.eot);
+            src: url({{Domain}}assets/css/fonts/Hind-Regular.eot?#iefix) format('embedded-opentype'),url({{Domain}}assets/css/fonts/Hind-Regular.ttf) format('truetype'),url({{Domain}}assets/css/fonts/Hind-Regular.otf) format('opentype'),url({{Domain}}assets/css/fonts/Hind-Regular.svg#Hind-Regular) format('svg');
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: Hind;
+            src: url({{Domain}}assets/css/fonts/Hind-Medium.eot);
+            src: url({{Domain}}assets/css/fonts/Hind-Medium.eot?#iefix) format('embedded-opentype'),url({{Domain}}assets/css/fonts/Hind-Medium.ttf) format('truetype'),url({{Domain}}assets/css/fonts/Hind-Medium.otf) format('opentype'),url({{Domain}}assets/css/fonts/Hind-Medium.svg#Hind-Medium) format('svg');
+            font-weight: 500;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: Hind;
+            src: url({{Domain}}assets/css/fonts/Hind-SemiBold.eot);
+            src: url({{Domain}}assets/css/fonts/Hind-SemiBold.eot?#iefix) format('embedded-opentype'),url({{Domain}}assets/css/fonts/Hind-SemiBold.ttf) format('truetype'),url({{Domain}}assets/css/fonts/Hind-SemiBold.otf) format('opentype'),url({{Domain}}assets/css/fonts/Hind-SemiBold.svg#Hind-SemiBold) format('svg');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: Hind;
+            src: url({{Domain}}assets/css/fonts/Hind-Bold.eot);
+            src: url({{Domain}}assets/css/fonts/Hind-Bold.eot?#iefix) format('embedded-opentype'),url({{Domain}}assets/css/fonts/Hind-Bold.ttf) format('truetype'),url({{Domain}}assets/css/fonts/Hind-Bold.otf) format('opentype'),url({{Domain}}assets/css/fonts/Hind-Bold.svg#Hind-Bold) format('svg');
+            font-weight: 800;
+            font-style: normal;
+        }
+
+        body {
+            font-size: 36px;
+            font-family: Hind;
+            color: #555a5e;
+            font-weight: 400;
+        }
+
+        .w-grid-12 {
+            width: 100%;
+        }
+
+        .w-grid-11 {
+            width: 91.66666667%;
+        }
+
+        .w-grid-10 {
+            width: 83.33333333%;
+        }
+
+        .w-grid-9 {
+            width: 75%;
+        }
+
+        .w-grid-8 {
+            width: 66.66666667%;
+        }
+
+        .w-grid-7 {
+            float: left;
+            width: 58.33333333%;
+            min-height: 1px;
+        }
+
+        .w-grid-6 {
+            width: 50%;
+        }
+
+        .w-grid-5 {
+            width: 41.66666667%;
+        }
+
+        .w-grid-4 {
+            width: 33.33333333%;
+        }
+
+        .w-grid-3 {
+            width: 25%;
+        }
+
+        .w-grid-2 {
+            width: 16.66666667%;
+        }
+
+        .w-grid-1 {
+            width: 8.33333333%;
+        }
+
+        .viewport {
+            width: 2480px;
+        }
+
+        span {
+            line-height: 1;
+        }
+
+        .row:after {
+            content: '';
+            clear: both;
+        }
+
+        img.full-width {
+            width: 100%;
+            height: auto;
+        }
+
+        img.width-percent-75 {
+            width: 75%;
+        }
+
+        a {
+            color: #0053a0;
+            text-decoration: none;
+        }
+
+        ol {
+            list-style-type: none;
+        }
+
+            ol li {
+                margin-bottom: 20.5px;
+                line-height: 1.3;
+                padding-left: 1em;
+                text-indent: -.7em;
+            }
+
+                ol li:before {
+                    content: "•";
+                    color: #555a5e;
+                }
+
+                ol li:last-child {
+                    margin-bottom: 0;
+                }
+
+        .inline-block {
+            display: inline-block;
+        }
+
+            .inline-block.vcenter {
+                vertical-align: middle;
+            }
+
+        .height160 {
+            height: 160px;
+        }
+
+        .height140 {
+            height: 140px;
+        }
+
+            .height140.vcenter, .height160.vcenter {
+                line-height: 160px;
+            }
+
+        .line.horizontal {
+            width: 97%;
+            height: 5px;
+            margin: 0 auto;
+        }
+
+        .line.dashed {
+            width: 100%;
+            height: 1px;
+            background: 0 0;
+            border-bottom: 5px dashed #93a0ab;
+        }
+
+        .border {
+            border: 5px solid #eef1f4;
+            border-top: none;
+        }
+
+            .border.dark-gray {
+                border: 5px solid #93a0ab;
+            }
+
+            .border.right {
+                border: none;
+                border-right: 5px solid #eef1f4;
+            }
+
+        .lh-small {
+            line-height: 1.2;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .mb-100 {
+            margin-bottom: 100px;
+        }
+
+        .mb-35 {
+            margin-bottom: 35px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+        .mb-70 {
+            margin-bottom: 70px;
+        }
+
+        .ml-80 {
+            margin-left: 80px;
+        }
+
+        .ml-60 {
+            margin-left: 60px;
+        }
+
+        .ml-30 {
+            margin-left: 30px;
+        }
+
+        .mr-30 {
+            margin-right: 30px;
+        }
+
+        .mr-50 {
+            margin-right: 50px;
+        }
+
+        .mt-70 {
+            margin-top: 70px;
+        }
+
+        .mt-100 {
+            margin-top: 100px;
+        }
+
+        .mt-35 {
+            margin-top: 35px;
+        }
+
+        .mt-25 {
+            margin-top: 25px;
+        }
+
+        .mtb-60 {
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        .mt-65 {
+            margin-top: 65px;
+        }
+
+        .pt-25 {
+            padding-top: 25px;
+        }
+
+        .pt-50 {
+            padding-top: 50px;
+        }
+
+        .pt-30 {
+            padding-top: 30px;
+        }
+
+        .pb-30 {
+            padding-bottom: 30px;
+        }
+
+        .pt-60 {
+            padding-top: 50px;
+        }
+
+        .pl-40 {
+            padding-left: 40px;
+        }
+
+        .pl-25 {
+            padding-left: 25px;
+        }
+
+        .pl-50, .plr-50 {
+            padding-left: 50px;
+        }
+
+        .pr-40 {
+            padding-right: 40px;
+        }
+
+        .pb-50 {
+            padding-bottom: 50px;
+        }
+
+        .p-50 {
+            padding: 50px;
+        }
+
+        .pr-25 {
+            padding-right: 25px;
+        }
+
+        .plr-50, .pr-50 {
+            padding-right: 50px;
+        }
+
+        .bg-white {
+            background: #fff;
+        }
+
+        .bg-gray {
+            background: #eef1f4;
+        }
+
+        .bg-blue {
+            background: #0053a0;
+        }
+
+        .fs-32 {
+            font-size: 32px;
+        }
+
+        .fs-36 {
+            font-size: 36px;
+        }
+
+        .fs-40 {
+            font-size: 40px;
+        }
+
+        .fs-46 {
+            font-size: 46px;
+        }
+
+        .fs-50 {
+            font-size: 50px;
+        }
+
+        .fs-64 {
+            font-size: 64px;
+        }
+
+        .fs-100 {
+            font-size: 100px;
+        }
+
+        .text-white {
+            color: #fff;
+        }
+
+        .text-blue {
+            color: #0053a0;
+        }
+
+        .text-red {
+            color: #ee3b33;
+        }
+
+        .text-gray {
+            color: #555a5e;
+        }
+
+        .light {
+            font-weight: 300;
+        }
+
+        .regular {
+            font-weight: 400;
+        }
+
+        .medium {
+            font-weight: 500;
+        }
+
+        .semi-bold {
+            font-weight: 600;
+        }
+
+        .bold {
+            font-weight: 800;
+        }
+
+        .arrow-indicator {
+            width: 80px;
+            height: 80px;
+            background: #fff;
+            position: absolute;
+            right: -40px;
+            top: 260px;
+            -moz-transform: translateY(-40px);
+            -webkit-transform: translateY(-40px);
+            -ms-transform: translateY(-40px);
+            -o-transform: translateY(-40px);
+            transform: translateY(-40px);
+        }
+
+            .arrow-indicator img {
+                position: absolute;
+                top: 40px;
+                left: 40px;
+                -moz-transform: translate(-20px,-20px);
+                -webkit-transform: translate(-20px,-20px);
+                -ms-transform: translate(-20px,-20px);
+                -o-transform: translate(-20px,-20px);
+                transform: translate(-20px,-20px);
+            }
+
+        .min-height-235 {
+            min-height: 235px;
+        }
+
+        .min-height-240 {
+            min-height: 240px;
+        }
+
+        .min-height-515 {
+            min-height: 515px;
+        }
+
+        .min-height-1175 {
+            min-height: 1175px;
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="assets/css/boarding-pass.css"> -->
+</head>
+
+<body>
+    <div class="viewport">
+        <div class="row bg-white p-50">
+            <div class="row border">
+                <div class="row bg-gray">
+                    <div class="w-grid-6">
+                        <div class="height160 vcenter plr-50">
+                            <img src="{{Domain}}assets/img/logo-pdf.png" style="margin-top: 50px;" alt="">
+                        </div>
+                    </div>
+                    <div class="w-grid-6 bg-blue">
+                        <div class="height160 vcenter">
+                            <span class="ml-60 fs-64 text-white bold inline-block vcenter">BİNİŞ KARTI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row pt-60 pb-50 plr-50">
+                    <div class="w-grid-4">
+                        <div><span class="fs-40">Yolcu</span></div>
+                        <div><span class="fs-40 text-blue semi-bold">{{Name}} {{Surname}}</span></div>
+                    </div>
+                    <div class="w-grid-4">
+                        <div><span class="fs-40">E-Bilet</span></div>
+                        <div><span class="fs-40 text-blue">{{ETicket}}</span></div>
+                    </div>
+                    <div class="w-grid-2">
+                        <div><span class="fs-40">Sınıf</span></div>
+                        <div><span class="fs-40 text-blue semi-bold">{{Class}}</span></div>
+                    </div>
+                    <div class="w-grid-2">
+                        <div><span class="fs-40">FQTV</span></div>
+                        <div><span class="fs-40 text-blue"></span></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="line horizontal"></div>
+                </div>
+                <div class="row pt-60 pb-50 plr-50">
+                    <div class="w-grid-3">
+                        <img src="data:image/jpg;base64,{{Pdf417Image}}" style="height:600px" class="width-percent-75" alt="">
+                    </div>
+                    <div class="w-grid-2">
+                        <div>
+                            <span class="fs-40">Uçuş No</span>
+                        </div>
+                        <div class="mb-100">
+                            <span class="fs-40 text-blue semi-bold">{{FlightNo}}</span>
+                        </div>
+                        <div>
+                            <span class="fs-40">Tarih</span>
+                        </div>
+                        <div>
+                            <span class="fs-40 text-blue semi-bold">{{FlightDate}}</span>
+                        </div>
+                    </div>
+                    <div class="w-grid-1">
+
+                    </div>
+                    <div class="w-grid-6">
+                        <div class="row">
+                            <div class="w-grid-4 text-left">
+                                <div><span class="fs-40">Kalkış</span></div>
+                                <div><span class="fs-40 text-blue">{{DepartureCityName}} ({{DepartureAirport}})</span></div>
+                                <div><span class="fs-46 text-red semi-bold">{{DepartureTime}}</span></div>
+                            </div>
+                            <div class="w-grid-4 text-center">
+                                <div class="height160 vcenter">
+                                    <img src="{{Domain}}assets/img/boarding-card-plane.png" style="position:relative; left:40px; top:10px;" alt="">
+                                </div>
+
+                            </div>
+                            <div class="w-grid-4 text-right">
+                                <div><span class="fs-40">Varış</span></div>
+                                <div><span class="fs-40 text-blue">{{ArrivalCityName}} ({{ArrivalAirport}})</span></div>
+                                <div><span class="fs-46 text-red semi-bold">{{ArrivalTime}}</span></div>
+                            </div>
+                        </div>
+                        <div class="row mt-70">
+                            <div class="w-grid-3">
+                                <div class="mr-30 pt-25 border dark-gray text-center min-height-240">
+                                    <div class="mb-50">
+                                        <span class="fs-32">Kapı</span>
+                                    </div>
+                                    <br />
+                                    <div>
+                                        <span class="fs-100 semi-bold text-blue">{{Gate}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-grid-5">
+                                <div class="mr-30 pt-25 border dark-gray text-center min-height-240">
+                                    <div class="mb-50">
+                                        <span class="fs-32">Biniş Saati</span>
+                                    </div>
+                                    <div>
+                                        <span class="fs-100 semi-bold text-blue">{{DepartureTime}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-grid-3">
+                                <div class="mr-30 pt-25 border dark-gray text-center min-height-240">
+                                    <div class="mb-50">
+                                        <span class="fs-32">Koltuk</span>
+                                    </div>
+                                    <div>
+                                        <span class="fs-100 semi-bold text-blue">{{SeatNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-70">
+                            <div class="w-grid-4">
+                                <div class="row">
+                                    <div class="w-grid-7">
+                                        <div>
+                                            <span class="fs-40">Grup Kodu</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-5 text-center">
+                                        <span class="fs-100 semi-bold text-blue">{{GroupCode}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-grid-5">
+                                <div class="row">
+                                    <div class="w-grid-7">
+                                        <div>
+                                            <span class="fs-40">Güvenlik Kodu</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-5">
+
+                                    </div>
+                                    <div class="w-grid-3 text-center">
+                                        <span class="fs-100 semi-bold text-blue">{{SecurityNo}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-grid-2 text-right">
+                                <div class="fs-48 semi-bold text-red mt-65">API OK</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="line dashed mtb-60"></div>
+        </div>
+        <div class="row">
+            <div class="w-grid-6">
+                <div class="row pr-25">
+                    <div class="row bg-white p-50 min-height-1175">
+                        <div class="row border">
+                            <div class="row  bg-gray">
+                                <div class="w-grid-5">
+                                    <div class="pl-40 pr-40 mt-65">
+                                        <img src="{{Domain}}assets/img/logo-double.png" class="full-width" alt="">
+                                    </div>
+
+                                </div>
+                                <div class="w-grid-7 bg-blue">
+                                    <div class="pt-30 pb-30 pl-40">
+                                        <div>
+                                            <span class="fs-36 text-white bold">BİNİŞ KARTI YOLCU KOPYASI</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-70">
+                                <div class="row">
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Yolcu</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{Name}} {{Surname}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Uçuş No</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{FlightNo}}</span>
+                                        </div>
+                                    </div>
+                                    <!--<div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Flight / Uçuş No</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">TK7262</span>
+                                        </div>
+                                    </div>-->
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Tarih</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{FlightDate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Kalkış</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{DepartureCityName}} ({{DepartureAirport}})</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Varış</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{ArrivalCityName}} ({{ArrivalAirport}})</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Sınıf</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{Class}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">E-Bilet</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{ETicket}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">FQTV</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{FQTV}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-12">
+                                        <div class="w-grid-5 text-right">
+                                            <span class="fs-36 inline-block mr-50">Grup Kodu</span>
+                                        </div>
+                                        <div class="w-grid-7 text-left">
+                                            <span class="fs-46 text-blue semi-bold inline-block">{{GroupCode}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-70 plr-50 mb-35">
+                                    <div class="w-grid-3 text-center">
+                                        <div class="border dark-gray mr-30 min-height-235">
+                                            <span class="fs-32 medium inline-block mt-25 mb-35">Kapı</span>
+                                            <br />
+                                            <span class="fs-100 semi-bold text-blue inline-block mb-35">{{Gate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-6 text-center">
+                                        <div class="border dark-gray mr-30 min-height-235">
+                                            <span class="fs-32 medium inline-block mt-25 mb-35">Biniş Saati</span>
+                                            <br />
+                                            <span class="fs-100 semi-bold text-blue inline-block mb-35">{{BoardingTime}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="w-grid-3 text-center min-height-235">
+                                        <div class="border dark-gray min-height-235">
+                                            <span class="fs-32 medium inline-block mt-25 mb-35">Koltuk</span>
+                                            <br />
+                                            <span class="fs-100 semi-bold text-blue inline-block mb-35">{{Seat}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-grid-6">
+                <div class="row pl-25">
+                    <div class="row bg-white p-50 min-height-1175">
+                        <div>
+                            <span class="fs-50 semi-bold text-blue">Genel Açıklamalar:</span>
+                        </div>
+                        <ol>
+                            <li>
+                                <span class="fs-36">ANADOLUJET BİR TÜRK HAVA YOLLARI MARKASIDIR.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Rezervasyonunuzda herhangi bir değişiklik olması durumunda biniş kartınız geçerli olmayacaktır.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Lütfen seyahatiniz için geçerli belgelerinizin yanınızda olduğundan emin olunuz ve biniş kapısında resimli kimlik kartınızı hazır ediniz.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Kontuar işlemleri, uçuşun tarifeli kalkış saatinden iç hatlarda 45 dakika, dış hatlarda 60 dakika önce sonlandırılmaktadır.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Tüm iç ve dış seferlerimiz için ise uçağın kalkış saatinden en geç 20 dakika önce uçuş kapısında bulunmanız gerekmektedir. Lütfen zamanlamanızı yaparken bazı terminallerde kapıya ulaşma süresinin 25 dakikayı bulabileceğini de hesaba katınız.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Uçuğa biniş kapınız değişmiş olabilir, lütfen ekranlardan kontrol ediniz.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">Birden fazla (gidiş-dönüş, aktarmalı veya çoklu) uçuş bulunan biletlerde uçuşların sıralı kullanımı gerekmektedir. Uçuşlarınızdan herhangi birine katılmamanız halinde Çağrı Merkezimizi arayarak bilgi vermemeniz durumunda kalan uçuşlarınızın tamamı (dönüş parkurları dahil) otomatik olarak iptal edilir. Ancak iptal edilen seferlerinizde yer olması durumunda uçuşunuzu gerçekleştirebilirsiniz. Aksi takdirde, 24 saat içinde yer müsaitliği olan ilk uçuşta gerçekleştirebilmek için satış ofislerine başvurulması gerekmektedir.</span>
+                            </li> 
+                            <li>
+                                <span class="fs-36">Biletini kredi kartıyla internet, mobil uygulama veya çağrı merkezi aracılığı ile almış yolcularımız; kredi kartı ibrazı talep edilirse, kredi kartlarını uçağa biniş kapılarında görevlilere bizzat edeceklerdir.</span>
+                            </li>
+                            <li>
+                                <span class="fs-36">AnadoluJet, operasyonel nedenler dolayısıyla yer numaranızı değiştirme hakkına sahiptir.</span>
+                            </li>
+                        </ol>
+                        <div>
+                            <span class="fs-50 semi-bold text-blue">Bagaj Güvenliği:</span>
+                        </div>
+                        <ol>
+                            <li>
+                                <span class="fs-36">Kabin bagajında sıvı, jel ve aerosol taşınmasında kısıtlar uygulanmaktadır. Daha fazla bilgi için <a href="https://www.anadolujet.com" target="_blank">www.anadolujet.com</a> adresini ziyaret ediniz.</span>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-100 pt-50 pb-50 bg-white">
+            <div class="w-grid-12">
+                <div class="pl-50 mb-35">
+                    <span class="fs-50 semi-bold text-blue">İzlemeniz Gereken Adımlar:</span>
+                </div>
+            </div>
+            <div class="w-grid-3 border right plr-50 relative min-height-515">
+                <div class="mb-50">
+                    <img src="{{Domain}}assets/img/bagaj-islemleri.png" class="inline-block vcenter mr-50" alt="">
+                    <span class="inline-block vcenter fs-40 text-blue semi-bold lh-small">
+                        BAGAJ<br>
+                        İŞLEMLERİ
+                    </span>
+                </div>
+                <div>
+                    <span class="fs-36">
+                        Bagajlarınızı uçuşunuz check-in’e kapanmadan kontuarlara teslim edebilirsiniz. Bagajınız yoksa ya da sadece kabin bagajınız varsa doğrudan güvenlik kontrolüne gidebilirsiniz.
+                    </span>
+                </div>
+                <div class="arrow-indicator">
+                    <img src="{{Domain}}assets/img/arrow-big.png" alt="">
+                </div>
+            </div>
+            <div class="w-grid-3 border right plr-50 relative min-height-515">
+                <div class="mb-50">
+                    <img src="{{Domain}}assets/img/guvenlik.png" class="inline-block vcenter mr-50" alt="">
+                    <span class="inline-block vcenter fs-40 text-blue semi-bold lh-small">
+                        GÜVENLİK<br>
+                        KONTROLÜ
+                    </span>
+                </div>
+                <div>
+                    <span class="fs-36">
+                        Uçağa biniş salonuna gitmek için güvenlik kontrolünden geçmeniz gerekmektedir.
+                    </span>
+                </div>
+                <div class="arrow-indicator">
+                    <img src="{{Domain}}assets/img/arrow-big.png" alt="">
+                </div>
+            </div>
+            <div class="w-grid-3 border right plr-50 relative min-height-515">
+                <div class="mb-50">
+                    <img src="{{Domain}}assets/img/ucaga-binis.png" class="inline-block vcenter mr-50" alt="">
+                    <span class="inline-block vcenter fs-40 text-blue semi-bold lh-small">
+                        UÇAĞA BİNİŞ
+                    </span>
+                </div>
+                <div>
+                    <span class="fs-36">
+                        Uçağa biniş, kalkış saatinden 20 dakika önce sona erer.
+                    </span>
+                </div>
+                <div class="arrow-indicator">
+                    <img src="{{Domain}}assets/img/arrow-big.png" alt="">
+                </div>
+            </div>
+            <div class="w-grid-3 plr-50 relative min-height-515">
+                <div class="mb-50">
+                    <img src="{{Domain}}assets/img/kalkis.png" class="inline-block vcenter mr-50" alt="">
+                    <span class="inline-block vcenter fs-40 text-blue semi-bold lh-small">
+                        KALKIŞ
+                    </span>
+                </div>
+                <div>
+                    <span class="fs-36">
+                        İyi yolculuklar.
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

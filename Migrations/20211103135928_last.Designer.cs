@@ -4,14 +4,16 @@ using CorePdf.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CorePdf.Migrations
 {
     [DbContext(typeof(TicketContext))]
-    partial class TicketContextModelSnapshot : ModelSnapshot
+    [Migration("20211103135928_last")]
+    partial class last
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,34 +27,10 @@ namespace CorePdf.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Class")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Departure")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DepartureTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Destination")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("DestinationTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FQTV")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FlightNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gate")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GroupCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
