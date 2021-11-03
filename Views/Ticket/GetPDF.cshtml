@@ -21,11 +21,14 @@
         <label asp-for="SeatNo" class="control-label"></label>
         <p>@Model.SeatNo</p>
     </div>
-    
+        
         
     <div class="form-group">
-        <input type="submit" name="submitbutton" value="PDF Confirmed Rotativa" class="btn btn-primary" />
-        <input type="submit" download  name="submitbutton" value="PDF Confirmed Razor" class="btn btn-primary" />
+       
+        <button name="submitbutton" value="PDF Confirmed Rotativa" class="btn btn-primary">Rotativa</button>
+        <button name="submitbutton" value="OpenHtmlToPdf" class="btn btn-primary">OpenHtmlToPdf</button>
+        <button name="submitbutton" value="HtmlToPdf" class="btn btn-primary">HtmlToPdf</button>
+
 
     </div>
 </form>

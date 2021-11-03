@@ -22,6 +22,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="5.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Mvc2Futures" Version="2.0.50217" />
+    <PackageReference Include="OpenHtmlToPdf" Version="1.12.0" />
     <PackageReference Include="RazorPDFCore" Version="1.0.3" />
     <PackageReference Include="Rotativa" Version="1.7.3" />
     <PackageReference Include="Rotativa.AspNetCore" Version="1.2.0-beta" />

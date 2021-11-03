@@ -17,6 +17,7 @@ using System.IO;
 using System.Text;
 using DotLiquid.NamingConventions;
 using Microsoft.Web.Mvc.Controls;
+using OpenHtmlToPdf;
 
 namespace CorePdf.Controllers
 {
@@ -169,16 +170,28 @@ namespace CorePdf.Controllers
         public ActionResult PDFConfirmed(TicketModel model, string submitbutton)
         {
             var ticketModel = _context.TicketDB.FindAsync(model.GUID).Result;
+            string ViewPath = "Views/Ticket/MVCTOPDF.cshtml";
+            string htmlString = GetViewString(ticketModel, ViewPath);
+
+            // Rotativa
             if (submitbutton == "PDF Confirmed Rotativa")
             {
                 return new ViewAsPdf(ticketModel);
             }
+
+            // OpenHtmlToPdf
+            else if (submitbutton == "OpenHtmlToPdf")
+            {
+                var pdf = Pdf
+                    .From(htmlString)
+                    .Content();
+                return File(pdf, "application/pdf", "Biletiniz.pdf");
+            }
+
+            // HtmlToPdf
             else
             {
-               
                 HtmlToPdf converter = new HtmlToPdf();
-                string ViewPath = "C:/Users/akdum/OneDrive/Masaüstü/CorePdf/Views/Ticket/MVCTOPDF.cshtml";
-                string htmlString = GetViewString(ticketModel, ViewPath);
                 PdfDocument doc = converter.ConvertHtmlString(htmlString);
                 var a = doc.Save();
                 doc.Close();
@@ -202,10 +215,6 @@ namespace CorePdf.Controllers
 
             return View(ticketModel);
         }
-
-
-
-
         // POST: Ticket/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
